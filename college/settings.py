@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'library'
+    'library',
 ]
 
 MIDDLEWARE = [
@@ -83,29 +86,32 @@ WSGI_APPLICATION = 'college.wsgi.application'
 #     }
 # }
 
+print(os.getenv('DBNAME'))
+
 # PostgresDb
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DBNAME'),
+        'USER': os.getenv('DBUSER'),
+        'PASSWORD': os.getenv('DBPASSWORD'),
+        'HOST': os.getenv('DBHOST'),
+        'PORT': os.getenv('DBPORT'),
+    }
+}
+
+
+# test db postgres
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'college',
-#         'USER': 'carnot',
-#         'PASSWORD': 'lm4carnot',
+#         'NAME': 'testdb',
+#         'USER': 'testuser',
+#         'PASSWORD': 'testpassword',
 #         'HOST': 'localhost',
 #         'PORT': 5432,
 #     }
 # }
-
-# test db postgres
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'testdb',
-        'USER': 'testuser',
-        'PASSWORD': 'testpassword',
-        'HOST': 'localhost',
-        'PORT': 5432,
-    }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

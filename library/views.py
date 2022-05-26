@@ -9,3 +9,6 @@ def find_student(request):
 
 def add_student(request):
     return render(request, 'add_student.html')
+
+def get_student(request, id):
+    pass
