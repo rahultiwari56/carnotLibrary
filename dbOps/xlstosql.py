@@ -4,17 +4,28 @@ import pandas as pd
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
 
+'''
+    Incase if any issue with pandas or xlrd, please run the below commannds,
+    since latest version of pandas have bugs as per the issue raised in their 
+    official repo
+'''
 # !pip install --upgrade openpyxl 
 # # !pip install xlrd==1.2.0
 
 load_dotenv()
 
+# db credentials
 dbuser = os.getenv('DBUSER')
 dbpassword = os.getenv('DBPASSWORD')
 dbname = os.getenv('DBNAME')
 dbhost = os.getenv('DBHOST')
 
 def eda(file_name):
+    '''
+        Description: This function is used for data pre-processing and transformation
+        Input: Takes input as a excel file path
+        Output: Returns pre-processed and transformed data
+    '''
 
     # read file
     student = pd.read_excel(file_name, 'Students')
@@ -41,9 +52,9 @@ def eda(file_name):
     student.drop(columns=['school'], inplace=True)
 
     # renaming the columns
-    school.rename(columns = {'REGIONID':'region_id', 'address2':'address'}, inplace = True)
+    school.rename(columns = {'REGIONID':'region_id', 'school_id':'id', 'address2':'address'}, inplace = True)
     student.rename(columns = {'ID':'id'}, inplace = True)
-    book.rename(columns = {'Author Name':'Author_Name', 'Date of Publication':'Date_Of_Publication', 'Number of Pages': 'Number_Of_Pages'}, inplace = True)
+    book.rename(columns = {'book_id':'id','Author Name':'Author_Name', 'Date of Publication':'Date_Of_Publication', 'Number of Pages': 'Number_Of_Pages'}, inplace = True)
 
     return student, school, book
 
@@ -52,7 +63,9 @@ def eda(file_name):
 def insert_to_db(table_data):
     '''
         This function add data from the dataframe to the respective database.
-        Input: Dictionary data
+        Input: Dictionary containing Dataframes
+        Output: Inserts datas to the tables School, Book and Student
+
         
     '''
     try:
@@ -75,6 +88,6 @@ if __name__=='__main__':
     # data preprocessing
     student, school, book = eda(file_name)
 
-    print(school)
+    # print(student)
 
     insert_to_db({"school": school, "book": book, "student": student})

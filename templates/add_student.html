@@ -3,13 +3,11 @@
 {% block content %}
 <!-- Custom styles for this template-->
 
-
 <style>
   .job_card {
     cursor: pointer;
   }
 </style>
-
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -17,86 +15,40 @@
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Add Student</h6>
+      <h5 class="m-0 font-weight-bold text-primary">Add Student</h5>
     </div>
 
     <div class="card-body">
 
-      <form style="padding-top: 20px;">
-        <input type="text" id="name" placeholder="Student Id" required> &nbsp;
-        <input type="text" id="email" type="email" placeholder="Student Name" required> &nbsp;
-        <button type="button" id="addToList" class="btn btn-primary mr-5" style="">&nbsp;Add Student &nbsp;</button>
+      <form style="padding-top: 20px;" id="addStudent" method="POST" action="">
+        <h6 class="m-0 font-weight-bold text-primary">Student:</h6>
+        <input type="text" id="first_name" name="first_name" placeholder="First Name" required> &nbsp;
+        <input type="text" id="last_name" name="last_name" placeholder="Last Name" > &nbsp;
+        <input type="email" id="student_email" name="student_email" placeholder="Email" > &nbsp;
+        <input type="text" id="gender" name="gender" placeholder="Gender" > &nbsp; </br></br></br>
+
+        <h6 class="m-0 font-weight-bold text-primary">School:</h6>
+        <input type="number" id="school_region_id" name="school_region_id" placeholder="Region Id" > &nbsp;
+        <input type="text" id="school_name" name="school_name" placeholder="Name" > &nbsp;
+        <input type="email" id="school_email" name="school_email" placeholder="Email" > &nbsp;
+        <input type="text" id="school_principal" name="school_principal" placeholder="Principal" > &nbsp;<br><br>
+        <input type="text" id="school_phone" name="school_phone" placeholder="Phone No." > &nbsp; <br><br>
+        <textarea id="school_address" name="school_address" placeholder="Address" rows="4" cols="30"></textarea>  <br><br><br>
+
+        <h6 class="m-0 font-weight-bold text-primary">Book:</h6>
+        <input type="text" id="book_title" name="book_title" placeholder="Title" > &nbsp;
+        <input type="text" id="book_author" name="book_author" placeholder="Author" > &nbsp;
+        <input type="date" class="date" id="book_publication_date" name="book_publication_date" placeholder="Publication Date" > &nbsp;
+        <input type="number" id="book_pgs_read" name="book_pgs_read" placeholder="Total Pages Read" > &nbsp; </br> </br>
+        <button type="submit" id="addToList" class="btn btn-primary mr-5" style="float: right">&nbsp;Add Student &nbsp;</button>
       </form>
 
     </div>
   </div>
   </br>
-  {% comment %} <div class="card shadow mb-4">
-    <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Result:</h6>
-    </div>
-  </div> {% endcomment %}
 
 </div>
 <!-- /.container-fluid -->
-
-
-
-<!-- Modal spinner -->
-<div>
-  <!-- <button type="button" class="btn btn-primary" onclick="modal_spinner();">Open and close in 3 secs</button> -->
-  <center>
-    <div class="modal_spinner fade bd-example-modal-lg" data-modal="modal_spinner" data-backdrop="static"
-      data-keyboard="false" tabindex="-1" style="margin-left: 220px;">
-      <div class="modal-dialog modal-md">
-        <div class="modal-content" style="padding: 35px;">
-          <div class="row">
-
-            <div class="col-sm-2">
-              <div style="width: 48px;">
-                <span class="fa fa-spinner fa-spin fa-3x"></span>
-              </div>
-            </div>
-            <div class="col-sm-9" style="margin-top: 10px;">
-              <strong>Please Wait! Sending Invites</strong>
-            </div>
-          </div>
-
-
-        </div>
-      </div>
-    </div>
-  </center>
-
-
-  <!-- Email sent message with card -->
-  <div>
-
-    <center>
-      <div id="candidate_invitation_card">
-
-      </div>
-      <!-- <strong>Invitation Link Has been sent to the candidates</strong> -->
-    </center>
-
-  </div>
-
-</div>
-
-
-
-
-
-</div>
-<!-- End of Main Content -->
-
-<!-- End of Footer -->
-
-</div>
-<!-- End of Content Wrapper -->
-
-</div>
-<!-- End of Page Wrapper -->
 
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
@@ -123,31 +75,4 @@
   </div>
 </div>
 
-<!-- Bootstrap core JavaScript-->
-<script src="{{ static_url_path }}/static/dashboard/vendor/jquery/jquery.min.js"></script>
-<script src="{{ static_url_path }}/static/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="{{ static_url_path }}/static/dashboard/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="{{ static_url_path }}/static/dashboard/js/sb-admin-2.min.js"></script>
-
-<script src="{{ static_url_path }}/static/dashboard/vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="{{ static_url_path }}/static/dashboard/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-<!-- Page level custom scripts -->
-<script src="{{ static_url_path }}/static/dashboard/js/demo/datatables-demo.js"></script>
-<script type="text/javascript" src="{{ static_url_path }}/static/dashboard/invitation-page/invitation.js"></script>
-
-<script>
-  var msg_data = window.localStorage.getItem("email_status_data")
-  // console.log(msg_data);
-  if (msg_data == "Email has been sent to the Candidates") {
-    // console.log('if-condition')
-    document.getElementById("candidate_invitation_card").innerHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert" style="width:50%;"><strong>` + msg_data + `</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>`
-    window.localStorage.setItem('email_status_data', '');
-  }
-</script>
-<script src="{{ static_url_path }}/static/dashboard/js/notifications.js"></script>
 {% endblock content %}   
