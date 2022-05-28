@@ -1,0 +1,25 @@
+version: "3.7"
+   
+services:
+
+  app:
+    build:
+      context: .
+    image: carnot
+
+    command: bash -c "python manage.py runserver 0.0.0.0:8000"
+    # command: bash -c "gunicorn --workers=8 astro.wsgi:application --bind 0.0.0.0:80 --preload"
+    # command: sh -c "gunicorn astro.wsgi:application --bind 0.0.0.0:80 --preload"
+
+    volumes:
+    - .:/carnot
+
+    # ports:
+    #   - 9450:80
+    #   - 5432:5432
+
+    env_file:
+      - ./.env
+
+    network_mode: "host"
+      

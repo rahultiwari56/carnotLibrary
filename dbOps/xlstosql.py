@@ -77,7 +77,7 @@ def insert_to_db(table_data):
 
         conn.close()
 
-        return True
+        return "Data Inserted Successfully."
     except:
         return "Data Insertion Failed."
 
