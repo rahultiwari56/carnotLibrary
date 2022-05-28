@@ -1,19 +1,52 @@
 import email
-from django.http import HttpResponse, HttpResponseForbidden
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.forms.models import model_to_dict
 from django.http import JsonResponse, HttpResponse
 from library.models import Student, School, Book
 from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
+
+from django.contrib.auth.models import User
+from django.contrib import messages, auth
+from django.contrib.auth import authenticate, logout, login
+
+@csrf_exempt
+def login_user(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        queryset_check_admin = User.objects.filter(
+                username=username, is_superuser=True)
+        print(queryset_check_admin)
+
+        if queryset_check_admin:
+            admin_login_auth = auth.authenticate(username=username, password=password)
+            print(admin_login_auth)
+
+            if admin_login_auth is not None:
+                login(request, admin_login_auth)
+
+                return HttpResponseRedirect("/")
+
+    return render(request, 'login.html')
+
+def logout_user(request):
+    logout(request)
+    return HttpResponseRedirect("login/")
 
 def index(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login/')
     student = Student.objects.all().count()
     book = Book.objects.all().count()
     school = School.objects.all().count()
-    print(student)
+    # print(student)
     return render(request, 'index.html', {'total_student': student, 'total_school': school, 'total_book': book})
 
 def find_student(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login/')
     return render(request, 'search_student.html')
 
 @csrf_exempt
