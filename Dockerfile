@@ -9,6 +9,8 @@ RUN pip install -r requirements.txt
 
 RUN pip install gunicorn
 
+RUN python xlstosql.py
+
 RUN apt-get update
 
 COPY . /carnot/
