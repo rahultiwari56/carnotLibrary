@@ -62,3 +62,6 @@ venv.bak/
 
 # django custom
 migrations/
+
+# python-env
+lmenv
