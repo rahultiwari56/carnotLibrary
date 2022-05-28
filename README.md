@@ -66,7 +66,7 @@
 
 <strong>5. Run the ETL </strong>
 - Here the raw data from file need to be pre-processed and transfer to the db
-- Move to ```college/dbOps/``` and thanrun the below command
+- Move to ```dbOps/``` and thanrun the below command
 ```pyhton xlstosql.py```
 
 <br>
