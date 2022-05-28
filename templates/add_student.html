@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+
 <!-- Custom styles for this template-->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <style>
   .job_card {
@@ -11,6 +13,12 @@
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
+  {% if Message %}
+    <div class="alert alert-warning alert-dismissible">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      {{ Message }}
+    </div>
+  {% endif %}
 
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
@@ -25,7 +33,12 @@
         <input type="text" id="first_name" name="first_name" placeholder="First Name" required> &nbsp;
         <input type="text" id="last_name" name="last_name" placeholder="Last Name" > &nbsp;
         <input type="email" id="student_email" name="student_email" placeholder="Email" > &nbsp;
-        <input type="text" id="gender" name="gender" placeholder="Gender" > &nbsp; </br></br></br>
+        {% comment %} <input type="text" id="gender" name="gender" placeholder="Gender" > &nbsp; </br></br></br> {% endcomment %}
+        <select id="gender" name="gender">
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Prefer not to say">Prefer not to say</option>
+        </select></br></br></br>
 
         <h6 class="m-0 font-weight-bold text-primary">School:</h6>
         <input type="number" id="school_region_id" name="school_region_id" placeholder="Region Id" > &nbsp;
@@ -40,7 +53,7 @@
         <input type="text" id="book_author" name="book_author" placeholder="Author" > &nbsp;
         <input type="date" class="date" id="book_publication_date" name="book_publication_date" placeholder="Publication Date" > &nbsp;
         <input type="number" id="book_pgs_read" name="book_pgs_read" placeholder="Total Pages Read" > &nbsp; </br> </br>
-        <button type="submit" id="addToList" class="btn btn-primary mr-5" style="float: right">&nbsp;Add Student &nbsp;</button>
+        <button type="submit" id="addToList" class="btn btn-primary mr-5" style="float: right">&nbsp;Submit Data &nbsp;</button>
       </form>
 
     </div>
@@ -55,24 +68,5 @@
   <i class="fas fa-angle-up"></i>
 </a>
 
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
-      <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-        <a class="btn btn-primary" href="/logout/">Logout</a>
-      </div>
-    </div>
-  </div>
-</div>
 
 {% endblock content %}   

@@ -91,9 +91,9 @@ def add_student(request):
         book=Book.objects.get(id=book))
         student_data.save()
         
-        return render(request, 'add_student.html', {'message': 'Addedd Successfully'})
+        return render(request, 'add_student.html', {'Message': 'Addedd Successfully'})
 
-    return render(request, 'add_student.html', {'message': ''})
+    return render(request, 'add_student.html', {'Message': ''})
 
 
 # get studen data by 'id' or 'name'
